@@ -11,6 +11,11 @@ import {
   PhotoAddBtn,
   RadioBtnWrapper,
   RadioBtnLabel,
+  InputTitleSpan,
+  ContentBoxInput,
+  ContentBoxContainer,
+  SubmitButton,
+  CheckBoxInput,
 } from "../../../styles/newBoardRegister";
 
 export default function NewBoardPages() {
@@ -18,28 +23,28 @@ export default function NewBoardPages() {
     <MasterWrapper>
       <PageWrapper>
         <TitleWrapper>
-          <span>게시물 등록</span>
+          <InputTitleSpan>게시물 등록</InputTitleSpan>
         </TitleWrapper>
         <LoginInfoWrapper>
           <InputBoxWrapper>
-            <span>작성자</span>
+            <InputTitleSpan>작성자</InputTitleSpan>
             <InputBoxContainer placeholder="이름을 적어주세요."></InputBoxContainer>
           </InputBoxWrapper>
           <InputBoxWrapper>
-            <span>비밀번호</span>
+            <InputTitleSpan>비밀번호</InputTitleSpan>
             <InputBoxContainer placeholder="비밀번호를 입력해주세요."></InputBoxContainer>
           </InputBoxWrapper>
         </LoginInfoWrapper>
         <InputBoxWrapper>
-          <span>제목</span>
+          <InputTitleSpan>제목</InputTitleSpan>
           <InputBoxContainer placeholder="제목을 작성해주세요."></InputBoxContainer>
         </InputBoxWrapper>
-        <InputBoxWrapper>
-          <span>내용</span>
-          <InputBoxContainer placeholder="내용을 작성해주세요."></InputBoxContainer>
-        </InputBoxWrapper>
+        <ContentBoxContainer>
+          <InputTitleSpan>내용</InputTitleSpan>
+          <ContentBoxInput placeholder="내용을 작성해주세요."></ContentBoxInput>
+        </ContentBoxContainer>
         <AddressBoxWrapper>
-          <span>주소</span>
+          <InputTitleSpan>주소</InputTitleSpan>
           <AddressNumberBox>
             <InputBoxContainer placeholder="07250"></InputBoxContainer>
             <button>우편번호 검색</button>
@@ -48,38 +53,43 @@ export default function NewBoardPages() {
           <InputBoxContainer></InputBoxContainer>
         </AddressBoxWrapper>
         <InputBoxWrapper>
-          <span>유튜브</span>
+          <InputTitleSpan>유튜브</InputTitleSpan>
           <InputBoxContainer placeholder="링크를 복사해주세요."></InputBoxContainer>
         </InputBoxWrapper>
+        <InputBoxWrapper>
+          <InputTitleSpan>사진 첨부</InputTitleSpan>
+          <PhotoAddWrapper>
+            <PhotoAddBtn>
+              <span>+</span>
+              <span>Upload</span>
+            </PhotoAddBtn>
+            <PhotoAddBtn>
+              <span>+</span>
+              <span>Upload</span>
+            </PhotoAddBtn>
+            <PhotoAddBtn>
+              <span>+</span>
+              <span>Upload</span>
+            </PhotoAddBtn>
+          </PhotoAddWrapper>
+        </InputBoxWrapper>
+        <InputBoxWrapper>
+          <InputTitleSpan>메인 설정</InputTitleSpan>
+          <RadioBtnWrapper>
+            <RadioBtnLabel>
+              <CheckBoxInput
+                name="mainSetting"
+                type="radio"
+                defaultChecked="true"
+              ></CheckBoxInput>
+              <span>유튜브</span>
+              <CheckBoxInput name="mainSetting" type="radio"></CheckBoxInput>
+              <span>사진</span>
+            </RadioBtnLabel>
+          </RadioBtnWrapper>
+        </InputBoxWrapper>
+        <SubmitButton>등록하기</SubmitButton>
       </PageWrapper>
-      <InputBoxWrapper>
-        <span>사진 첨부</span>
-        <PhotoAddWrapper>
-          <PhotoAddBtn>
-            <span>+</span>
-            <span>Upload</span>
-          </PhotoAddBtn>
-          <PhotoAddBtn>
-            <span>+</span>
-            <span>Upload</span>
-          </PhotoAddBtn>
-          <PhotoAddBtn>
-            <span>+</span>
-            <span>Upload</span>
-          </PhotoAddBtn>
-        </PhotoAddWrapper>
-      </InputBoxWrapper>
-      <InputBoxWrapper>
-        <span>메인 설정</span>
-        <RadioBtnWrapper>
-          <RadioBtnLabel>
-            <input type="radio"></input>
-            <span>유튜브</span>
-            <input type="radio"></input>
-            <span>사진</span>
-          </RadioBtnLabel>
-        </RadioBtnWrapper>
-      </InputBoxWrapper>
     </MasterWrapper>
   );
 }
