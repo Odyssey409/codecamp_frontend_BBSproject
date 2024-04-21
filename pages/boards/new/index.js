@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   InputBoxWrapper,
   LoginInfoWrapper,
@@ -16,9 +17,66 @@ import {
   ContentBoxContainer,
   SubmitButton,
   CheckBoxInput,
+  ErrorMsgContainer,
 } from "../../../styles/newBoardRegister";
 
 export default function NewBoardPages() {
+  const [username, setUsername] = useState("");
+  const [userpassword, setPassword] = useState("");
+  const [contentTitle, setContentTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  const [usernameError, setUsernameError] = useState("");
+  const [userpasswordError, setPasswordError] = useState("");
+  const [contentTitleError, setContentTitleError] = useState("");
+  const [contentError, setContentError] = useState("");
+
+  function onChangeUserName() {
+    setUsername(event.target.value);
+    if (username !== "") {
+      setUsernameError("");
+    }
+  }
+
+  function onChangeUserPassword() {
+    setPassword(event.target.value);
+    if (userpassword !== "") {
+      setPasswordError("");
+    }
+  }
+
+  function onChangecontentTitle() {
+    setContentTitle(event.target.value);
+    if (contentTitle !== "") {
+      setContentTitleError("");
+    }
+  }
+
+  function onChangecontent() {
+    setContent(event.target.value);
+    if (content !== "") {
+      setContentError("");
+    }
+  }
+
+  function onClickSubmitBtn() {
+    if (!username) {
+      setUsernameError("작성자를 입력해주세요.");
+    }
+    if (!userpassword) {
+      setPasswordError("비밀번호를 입력해주세요.");
+    }
+    if (!contentTitle) {
+      setContentTitleError("제목을 입력해주세요.");
+    }
+    if (!content) {
+      setContentError("내용을 입력해주세요.");
+    }
+    if (username && userpassword && contentTitle && content) {
+      alert("게시물이 등록되었습니다.");
+    }
+  }
+
   return (
     <MasterWrapper>
       <PageWrapper>
@@ -28,20 +86,36 @@ export default function NewBoardPages() {
         <LoginInfoWrapper>
           <InputBoxWrapper>
             <InputTitleSpan>작성자</InputTitleSpan>
-            <InputBoxContainer placeholder="이름을 적어주세요."></InputBoxContainer>
+            <InputBoxContainer
+              placeholder="이름을 적어주세요."
+              onChange={onChangeUserName}
+            ></InputBoxContainer>
+            <ErrorMsgContainer>{usernameError}</ErrorMsgContainer>
           </InputBoxWrapper>
           <InputBoxWrapper>
             <InputTitleSpan>비밀번호</InputTitleSpan>
-            <InputBoxContainer placeholder="비밀번호를 입력해주세요."></InputBoxContainer>
+            <InputBoxContainer
+              placeholder="비밀번호를 입력해주세요."
+              onChange={onChangeUserPassword}
+            ></InputBoxContainer>
+            <ErrorMsgContainer>{userpasswordError}</ErrorMsgContainer>
           </InputBoxWrapper>
         </LoginInfoWrapper>
         <InputBoxWrapper>
           <InputTitleSpan>제목</InputTitleSpan>
-          <InputBoxContainer placeholder="제목을 작성해주세요."></InputBoxContainer>
+          <InputBoxContainer
+            placeholder="제목을 작성해주세요."
+            onChange={onChangecontentTitle}
+          ></InputBoxContainer>
+          <ErrorMsgContainer>{contentTitleError}</ErrorMsgContainer>
         </InputBoxWrapper>
         <ContentBoxContainer>
           <InputTitleSpan>내용</InputTitleSpan>
-          <ContentBoxInput placeholder="내용을 작성해주세요."></ContentBoxInput>
+          <ContentBoxInput
+            placeholder="내용을 작성해주세요."
+            onChange={onChangecontent}
+          ></ContentBoxInput>
+          <ErrorMsgContainer>{contentError}</ErrorMsgContainer>
         </ContentBoxContainer>
         <AddressBoxWrapper>
           <InputTitleSpan>주소</InputTitleSpan>
@@ -88,7 +162,7 @@ export default function NewBoardPages() {
             </RadioBtnLabel>
           </RadioBtnWrapper>
         </InputBoxWrapper>
-        <SubmitButton>등록하기</SubmitButton>
+        <SubmitButton onClick={onClickSubmitBtn}>등록하기</SubmitButton>
       </PageWrapper>
     </MasterWrapper>
   );

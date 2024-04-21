@@ -55,7 +55,8 @@ export const InputBoxContainer = styled.input`
   padding: 10px;
   margin-top: 10px;
   opacity: 0.6;
-  color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 1);
+  font-size: 15px;
   &.contentBoxInput {
     height: 300px;
   }
@@ -184,4 +185,12 @@ export const SubmitButton = styled.button`
   font-weight: 800;
   border: none;
   padding: 10px 50px 10px 50px;
+`;
+
+export const ErrorMsgContainer = styled.div`
+  font-size: 12px;
+  color: #ff4b4b;
+  font-weight: 900;
+  margin-top: 5px;
+  height: 6px;
 `;
