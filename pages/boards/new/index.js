@@ -20,7 +20,22 @@ import {
   ErrorMsgContainer,
 } from "../../../styles/newBoardRegister";
 
+import { gql, useMutation } from "@apollo/client";
+
+const CREATE_BOARD = gql`
+  mutation createBoard($createBoardInput: CreateBoardInput!) {
+    createBoard(createBoardInput: $createBoardInput) {
+      writer
+      contents
+      title
+      _id
+    }
+  }
+`;
+
 export default function NewBoardPages() {
+  const [createBoard] = useMutation(CREATE_BOARD);
+
   const [username, setUsername] = useState("");
   const [userpassword, setPassword] = useState("");
   const [contentTitle, setContentTitle] = useState("");
@@ -31,35 +46,35 @@ export default function NewBoardPages() {
   const [contentTitleError, setContentTitleError] = useState("");
   const [contentError, setContentError] = useState("");
 
-  function onChangeUserName() {
+  const onChangeUserName = () => {
     setUsername(event.target.value);
     if (username !== "") {
       setUsernameError("");
     }
-  }
+  };
 
-  function onChangeUserPassword() {
+  const onChangeUserPassword = () => {
     setPassword(event.target.value);
     if (userpassword !== "") {
       setPasswordError("");
     }
-  }
+  };
 
-  function onChangecontentTitle() {
+  const onChangecontentTitle = () => {
     setContentTitle(event.target.value);
     if (contentTitle !== "") {
       setContentTitleError("");
     }
-  }
+  };
 
-  function onChangecontent() {
+  const onChangecontent = () => {
     setContent(event.target.value);
     if (content !== "") {
       setContentError("");
     }
-  }
+  };
 
-  function onClickSubmitBtn() {
+  const onClickSubmitBtn = async () => {
     if (!username) {
       setUsernameError("작성자를 입력해주세요.");
     }
@@ -74,8 +89,20 @@ export default function NewBoardPages() {
     }
     if (username && userpassword && contentTitle && content) {
       alert("게시물이 등록되었습니다.");
+
+      const result = await createBoard({
+        variables: {
+          createBoardInput: {
+            writer: username,
+            password: userpassword,
+            title: contentTitle,
+            contents: content,
+          },
+        },
+      });
+      console.log(result);
     }
-  }
+  };
 
   return (
     <MasterWrapper>
