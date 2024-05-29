@@ -21,6 +21,7 @@ import {
 } from "../../../styles/newBoardRegister";
 
 import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
 
 const CREATE_BOARD = gql`
   mutation createBoard($createBoardInput: CreateBoardInput!) {
@@ -34,6 +35,7 @@ const CREATE_BOARD = gql`
 `;
 
 export default function NewBoardPages() {
+  const router = useRouter();
   const [createBoard] = useMutation(CREATE_BOARD);
 
   const [username, setUsername] = useState("");
@@ -90,17 +92,23 @@ export default function NewBoardPages() {
     if (username && userpassword && contentTitle && content) {
       alert("게시물이 등록되었습니다.");
 
-      const result = await createBoard({
-        variables: {
-          createBoardInput: {
-            writer: username,
-            password: userpassword,
-            title: contentTitle,
-            contents: content,
+      try {
+        const result = await createBoard({
+          variables: {
+            createBoardInput: {
+              writer: username,
+              password: userpassword,
+              title: contentTitle,
+              contents: content,
+            },
           },
-        },
-      });
-      console.log(result);
+        });
+        console.log(result.data.createBoard._id);
+        router.push(`/boards/${result.data.createBoard._id}`);
+        console.log(result);
+      } catch (error) {
+        alert(error.message);
+      }
     }
   };
 
