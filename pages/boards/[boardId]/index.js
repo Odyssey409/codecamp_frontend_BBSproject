@@ -163,9 +163,9 @@ export default function BoardDetailPage() {
               <CommentsIndividualNameBox>
                 <span>노원두</span>
                 <CommentsListsRating>
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
+                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
+                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
                 </CommentsListsRating>
@@ -186,9 +186,9 @@ export default function BoardDetailPage() {
               <CommentsIndividualNameBox>
                 <span>땅찌</span>
                 <CommentsListsRating>
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
+                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
+                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
                 </CommentsListsRating>
@@ -209,9 +209,9 @@ export default function BoardDetailPage() {
               <CommentsIndividualNameBox>
                 <span>안우엽</span>
                 <CommentsListsRating>
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
+                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
+                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
                 </CommentsListsRating>
