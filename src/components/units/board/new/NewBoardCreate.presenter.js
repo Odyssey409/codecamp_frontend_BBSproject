@@ -97,7 +97,10 @@ export default function CreateNewBoardUI(props) {
             </Styles.RadioBtnLabel>
           </Styles.RadioBtnWrapper>
         </Styles.InputBoxWrapper>
-        <Styles.SubmitButton onClick={props.onClickSubmitBtn}>
+        <Styles.SubmitButton
+          onClick={props.onClickSubmitBtn}
+          disabled={props.activeSubmitBtn}
+        >
           등록하기
         </Styles.SubmitButton>
       </Styles.PageWrapper>

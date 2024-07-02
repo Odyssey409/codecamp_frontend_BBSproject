@@ -19,10 +19,17 @@ export default function NewBoard() {
   const [contentTitleError, setContentTitleError] = useState("");
   const [contentError, setContentError] = useState("");
 
+  const [activeSubmitBtn, setActiveSubmitBtn] = useState(true);
+
   const onChangeUserName = () => {
     setUsername(event.target.value);
     if (username !== "") {
       setUsernameError("");
+    }
+    if (username && userpassword && contentTitle && content) {
+      setActiveSubmitBtn(false);
+    } else {
+      setActiveSubmitBtn(true);
     }
   };
 
@@ -31,6 +38,11 @@ export default function NewBoard() {
     if (userpassword !== "") {
       setPasswordError("");
     }
+    if (username && userpassword && contentTitle && content) {
+      setActiveSubmitBtn(false);
+    } else {
+      setActiveSubmitBtn(true);
+    }
   };
 
   const onChangeContentTitle = () => {
@@ -38,12 +50,23 @@ export default function NewBoard() {
     if (contentTitle !== "") {
       setContentTitleError("");
     }
+    if (username && userpassword && contentTitle && content) {
+      setActiveSubmitBtn(false);
+    } else {
+      setActiveSubmitBtn(true);
+    }
   };
 
   const onChangeContent = () => {
     setContent(event.target.value);
     if (content !== "") {
       setContentError("");
+    }
+
+    if (username && userpassword && contentTitle && content) {
+      setActiveSubmitBtn(false);
+    } else {
+      setActiveSubmitBtn(true);
     }
   };
 
@@ -94,6 +117,7 @@ export default function NewBoard() {
       userpasswordError={userpasswordError}
       contentTitleError={contentTitleError}
       contentError={contentError}
+      activeSubmitBtn={activeSubmitBtn}
     />
   );
 }

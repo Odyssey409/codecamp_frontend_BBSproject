@@ -185,6 +185,10 @@ export const SubmitButton = styled.button`
   font-weight: 800;
   border: none;
   padding: 10px 50px 10px 50px;
+
+  &:disabled {
+    background-color: gray;
+  }
 `;
 
 export const ErrorMsgContainer = styled.div`
