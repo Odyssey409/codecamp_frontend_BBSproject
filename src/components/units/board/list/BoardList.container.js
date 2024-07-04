@@ -7,7 +7,7 @@ export default function BoardList() {
   const router = useRouter();
 
   const { data } = useQuery(FETCH_BOARDS, {
-    variables: { page: 125 },
+    variables: { page: 1 },
   });
 
   const onClickBoardWriteBtn = async () => {

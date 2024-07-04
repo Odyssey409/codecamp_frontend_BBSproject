@@ -66,8 +66,16 @@ export default function BoardDetailUI(props) {
         </Styles.BoardBodyWrapper>
       </Styles.PageWrapper>
       <Styles.ToListsAndModifyBtnBox>
-        <Styles.ToListsAndModifyBtn>목록으로</Styles.ToListsAndModifyBtn>
+        <Styles.ToListsAndModifyBtn onClick={props.onClickToList}>
+          목록으로
+        </Styles.ToListsAndModifyBtn>
         <Styles.ToListsAndModifyBtn>수정하기</Styles.ToListsAndModifyBtn>
+        <Styles.ToListsAndModifyBtn
+          id={props.data?.fetchBoard?._id}
+          onClick={props.onClickDelete}
+        >
+          삭제하기
+        </Styles.ToListsAndModifyBtn>
       </Styles.ToListsAndModifyBtnBox>
       <Styles.BoardDetailBottomPageWrapper>
         <Styles.DivideLine></Styles.DivideLine>

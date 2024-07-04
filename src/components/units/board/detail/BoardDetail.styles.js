@@ -154,7 +154,7 @@ export const BoardDetailBottomPageWrapper = styled.div`
 `;
 
 export const ToListsAndModifyBtnBox = styled.div`
-  width: 15%;
+  width: 25%;
   display: flex;
   justify-content: space-between;
   align-items: center;
