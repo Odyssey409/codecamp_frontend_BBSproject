@@ -2,19 +2,19 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 
-import { CREATE_BOARD } from "./NewBoardCreate.queries";
+import { CREATE_BOARD, UPDATE_BOARD } from "./NewBoardCreate.queries";
 import CreateNewBoardUI from "./NewBoardCreate.presenter";
 
 export default function NewBoard(props) {
-  console.log(props?.data);
-
   const router = useRouter();
   const [createBoard] = useMutation(CREATE_BOARD);
+  const [updateBoard] = useMutation(UPDATE_BOARD);
 
   const [username, setUsername] = useState("");
   const [userpassword, setPassword] = useState("");
   const [contentTitle, setContentTitle] = useState("");
   const [content, setContent] = useState("");
+  const [youtubeURL, setYoutubeURL] = useState("");
 
   const [usernameError, setUsernameError] = useState("");
   const [userpasswordError, setPasswordError] = useState("");
@@ -72,6 +72,10 @@ export default function NewBoard(props) {
     }
   };
 
+  const onChangeYoutubeURL = () => {
+    setYoutubeURL(event.target.value);
+  };
+
   const onClickSubmitBtn = async () => {
     if (!username) {
       setUsernameError("작성자를 입력해주세요.");
@@ -96,6 +100,7 @@ export default function NewBoard(props) {
               password: userpassword,
               title: contentTitle,
               contents: content,
+              youtubeUrl: youtubeURL,
             },
           },
         });
@@ -106,18 +111,54 @@ export default function NewBoard(props) {
     }
   };
 
+  const onClickUpdate = async () => {
+    const myVariables = {
+      boardId: router.query.boardId,
+      password: userpassword,
+      updateBoardInput: {},
+    };
+
+    console.log(props.data?.fetchBoard.youtubeUrl);
+
+    if (!contentTitle) {
+      myVariables.updateBoardInput.title = props.data?.fetchBoard.title;
+    } else {
+      myVariables.updateBoardInput.title = contentTitle;
+    }
+    if (!content) {
+      myVariables.updateBoardInput.contents = props.data?.fetchBoard.contents;
+    } else {
+      myVariables.updateBoardInput.contents = content;
+    }
+    if (!youtubeURL) {
+      myVariables.updateBoardInput.youtubeUrl =
+        props.data?.fetchBoard.youtubeUrl;
+    } else {
+      myVariables.updateBoardInput.youtubeUrl = youtubeURL;
+    }
+
+    const result = await updateBoard({
+      variables: myVariables,
+    });
+    router.push(`/boards/${result.data.updateBoard._id}`);
+  };
+
   return (
     <CreateNewBoardUI
       onChangeUserName={onChangeUserName}
       onChangeUserPassword={onChangeUserPassword}
       onChangeContentTitle={onChangeContentTitle}
       onChangeContent={onChangeContent}
+      onChangeYoutubeURL={onChangeYoutubeURL}
       onClickSubmitBtn={onClickSubmitBtn}
       usernameError={usernameError}
       userpasswordError={userpasswordError}
       contentTitleError={contentTitleError}
       contentError={contentError}
       activeSubmitBtn={activeSubmitBtn}
+      isEdit={props.isEdit}
+      data={props.data}
+      onClickUpdate={onClickUpdate}
     />
   );
 }

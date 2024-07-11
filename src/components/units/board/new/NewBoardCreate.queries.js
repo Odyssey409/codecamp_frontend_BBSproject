@@ -7,6 +7,24 @@ export const CREATE_BOARD = gql`
       contents
       title
       _id
+      youtubeUrl
+    }
+  }
+`;
+
+export const UPDATE_BOARD = gql`
+  mutation updateBoard(
+    $boardId: ID!
+    $password: String
+    $updateBoardInput: UpdateBoardInput!
+  ) {
+    updateBoard(
+      boardId: $boardId
+      password: $password
+      updateBoardInput: $updateBoardInput
+    ) {
+      _id
+      updatedAt
     }
   }
 `;

@@ -5,7 +5,9 @@ export default function CreateNewBoardUI(props) {
     <Styles.MasterWrapper>
       <Styles.PageWrapper>
         <Styles.TitleWrapper>
-          <Styles.InputTitleSpan>게시물 등록</Styles.InputTitleSpan>
+          <Styles.InputTitleSpan>
+            게시물 {props.isEdit ? "수정" : "등록"}
+          </Styles.InputTitleSpan>
         </Styles.TitleWrapper>
         <Styles.LoginInfoWrapper>
           <Styles.InputBoxWrapper>
@@ -13,6 +15,8 @@ export default function CreateNewBoardUI(props) {
             <Styles.InputBoxContainer
               placeholder="이름을 적어주세요."
               onChange={props.onChangeUserName}
+              defaultValue={props.data?.fetchBoard.writer}
+              disabled={props.isEdit}
             ></Styles.InputBoxContainer>
             <Styles.ErrorMsgContainer>
               {props.usernameError}
@@ -34,6 +38,7 @@ export default function CreateNewBoardUI(props) {
           <Styles.InputBoxContainer
             placeholder="제목을 작성해주세요."
             onChange={props.onChangeContentTitle}
+            defaultValue={props.data?.fetchBoard.title}
           ></Styles.InputBoxContainer>
           <Styles.ErrorMsgContainer>
             {props.ContentTitleError}
@@ -44,6 +49,7 @@ export default function CreateNewBoardUI(props) {
           <Styles.ContentBoxInput
             placeholder="내용을 작성해주세요."
             onChange={props.onChangeContent}
+            defaultValue={props.data?.fetchBoard.contents}
           ></Styles.ContentBoxInput>
           <Styles.ErrorMsgContainer>
             {props.ContentError}
@@ -60,7 +66,11 @@ export default function CreateNewBoardUI(props) {
         </Styles.AddressBoxWrapper>
         <Styles.InputBoxWrapper>
           <Styles.InputTitleSpan>유튜브</Styles.InputTitleSpan>
-          <Styles.InputBoxContainer placeholder="링크를 복사해주세요."></Styles.InputBoxContainer>
+          <Styles.InputBoxContainer
+            defaultValue={props.data?.fetchBoard.youtubeUrl}
+            placeholder="링크를 복사해주세요."
+            onChange={props.onChangeYoutubeURL}
+          ></Styles.InputBoxContainer>
         </Styles.InputBoxWrapper>
         <Styles.InputBoxWrapper>
           <Styles.InputTitleSpan>사진 첨부</Styles.InputTitleSpan>
@@ -98,10 +108,10 @@ export default function CreateNewBoardUI(props) {
           </Styles.RadioBtnWrapper>
         </Styles.InputBoxWrapper>
         <Styles.SubmitButton
-          onClick={props.onClickSubmitBtn}
-          disabled={props.activeSubmitBtn}
+          onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmitBtn}
+          disabled={props.isEdit ? false : props.activeSubmitBtn}
         >
-          등록하기
+          {props.isEdit ? "수정" : "등록"}하기
         </Styles.SubmitButton>
       </Styles.PageWrapper>
     </Styles.MasterWrapper>
