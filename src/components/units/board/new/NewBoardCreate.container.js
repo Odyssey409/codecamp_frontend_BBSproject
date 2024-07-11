@@ -5,7 +5,9 @@ import { useRouter } from "next/router";
 import { CREATE_BOARD } from "./NewBoardCreate.queries";
 import CreateNewBoardUI from "./NewBoardCreate.presenter";
 
-export default function NewBoard() {
+export default function NewBoard(props) {
+  console.log(props?.data);
+
   const router = useRouter();
   const [createBoard] = useMutation(CREATE_BOARD);
 
