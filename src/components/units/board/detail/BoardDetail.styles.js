@@ -214,7 +214,8 @@ export const CommentWritingWrapper = styled.div`
   margin-top: 30px;
 `;
 
-export const CommentWritingBox = styled.textarea`
+export const CommentWritingBox = styled.input`
+  text-align: top;
   width: 100%;
   height: 100px;
   padding: 15px;
@@ -225,7 +226,6 @@ export const CommentWritingBox = styled.textarea`
 `;
 
 export const CommentPostBtnBox = styled.div`
-  padding-left: 10px;
   height: 60px;
   width: 100%;
   display: flex;
@@ -237,6 +237,7 @@ export const CommentPostBtnBox = styled.div`
 export const CommentLetterCntBox = styled.div`
   width: 30px;
   opacity: 0.5;
+  margin-left: 15px;
 `;
 
 export const CommentPostBtn = styled.div`
@@ -247,7 +248,6 @@ export const CommentPostBtn = styled.div`
   align-items: center;
   background-color: black;
   color: white;
-  margin-right: 10px;
 `;
 
 export const CommentsListWrapper = styled.div`
