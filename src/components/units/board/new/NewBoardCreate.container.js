@@ -118,6 +118,11 @@ export default function NewBoard(props) {
       updateBoardInput: {},
     };
 
+    if (!userpassword) {
+      alert("비밀번호를 입력해주세요!");
+      return;
+    }
+
     console.log(props.data?.fetchBoard.youtubeUrl);
 
     if (!contentTitle) {
