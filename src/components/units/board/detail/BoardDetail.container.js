@@ -6,6 +6,7 @@ import {
   FETCH_BOARD,
   DELETE_BOARD,
   CREATE_BOARD_COMMENT,
+  FETCH_BOARD_COMMENTS,
 } from "./BoardDetail.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
 
@@ -27,6 +28,10 @@ export default function BoardDetail() {
   const [ratingError, setRatingError] = useState("");
 
   const { data } = useQuery(FETCH_BOARD, {
+    variables: { boardId: router.query.boardId },
+  });
+
+  const { data: commentsData } = useQuery(FETCH_BOARD_COMMENTS, {
     variables: { boardId: router.query.boardId },
   });
 
@@ -76,7 +81,6 @@ export default function BoardDetail() {
 
   const onChangeRating = (value) => {
     setRating(value);
-    console.log(rating);
     if (rating !== null) {
       setRatingError("");
     }
@@ -115,6 +119,12 @@ export default function BoardDetail() {
             },
             boardId: router.query.boardId,
           },
+          refetchQueries: [
+            {
+              query: FETCH_BOARD_COMMENTS,
+              variables: { boardId: router.query.boardId },
+            },
+          ],
         });
       } catch (error) {
         alert(error.message);
@@ -165,6 +175,7 @@ export default function BoardDetail() {
       contentError={contentError}
       ratingError={ratingError}
       contentLength={contentLength}
+      commentsData={commentsData}
     />
   );
 }

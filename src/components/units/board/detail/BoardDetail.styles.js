@@ -232,7 +232,6 @@ export const CommentWritingWrapper = styled.div`
   flex-direction: column;
   background-color: white;
   border: 1px solid rgba(130, 130, 130, 0.4);
-  margin-top: 30px;
 `;
 
 export const CommentWritingBox = styled.input`
@@ -284,7 +283,6 @@ export const CommentErrorMsgWrapper = styled.div`
 export const CommentErrorMsgContainer = styled.div`
   display: flex;
   width: 100%;
-
   align-items: center;
   font-size: 12px;
   color: #ff4b4b;
@@ -308,6 +306,7 @@ export const CommentsIndividualBox = styled.div`
   align-items: center;
   justify-content: flex-start;
   margin-top: 10px;
+  border-bottom: 1px solid rgba(180, 189, 189, 0.9);
 `;
 
 export const CommentsIndividualContentWrapper = styled.div`
@@ -319,12 +318,27 @@ export const CommentsIndividualContentWrapper = styled.div`
   margin-left: 20px;
 `;
 
+export const CommentsIndividualProfileImgBox = styled.div`
+  font-size: 25px;
+  background-color: rgba(180, 189, 189, 0.9);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 50%;
+  margin-bottom: 40px;
+`;
+
 export const CommentsIndividualNameBox = styled.div`
   display: flex;
   height: 40px;
-  width: 10%;
+  width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+`;
+
+export const CommentsIndividualNameSpan = styled.span`
+  width: fit-content;
+  max-width: 300px;
+  overflow: hidden;
 `;
 
 export const CommentsIndividualContentBox = styled.div`
@@ -332,23 +346,24 @@ export const CommentsIndividualContentBox = styled.div`
   opacity: 0.8;
   display: flex;
   flex-direction: column;
-  height: 40px;
+  height: 100%;
   justify-content: space-between;
   align-items: flex-start;
 `;
 
 export const CommentsListsRating = styled.div`
   display: flex;
-  width: 40px;
+  width: 140px;
+  font-size: 10px;
   align-items: center;
   justify-content: space-between;
-  color: rgba(180, 189, 189, 0.7);
+  margin-left: 20px;
 `;
 
 export const CommentsListsCreatedAt = styled.div`
   font-size: 12px;
   opacity: 0.6;
   width: 100%;
-
-  margin: 10px 0px 30px 130px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 `;

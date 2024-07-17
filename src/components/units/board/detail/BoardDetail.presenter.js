@@ -102,7 +102,6 @@ export default function BoardDetailUI(props) {
               allowHalf
               defaultValue={2.5}
             />
-            ;
           </Styles.CommentRatingBox>
         </Styles.CommentUserInfoWrapper>
         <Styles.CommentErrorMsgWrapper>
@@ -140,81 +139,29 @@ export default function BoardDetailUI(props) {
           </Styles.CommentErrorMsgContainer>
         </Styles.CommentErrorMsgWrapper>
         <Styles.CommentsListWrapper>
-          <Styles.CommentsIndividualBox>
-            <Styles.BoardHeaderProfileImgBox>
-              <FontAwesomeIcon icon={faUser} />
-            </Styles.BoardHeaderProfileImgBox>
-            <Styles.CommentsIndividualContentWrapper>
-              <Styles.CommentsIndividualNameBox>
-                <span>노원두</span>
-                <Styles.CommentsListsRating>
-                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
-                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
-                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                </Styles.CommentsListsRating>
-              </Styles.CommentsIndividualNameBox>
-              <Styles.CommentsIndividualContentBox>
-                진짜 유익하고 정말 필요한 정보인 것 같아요~! 앞으로도 좋은 정보
-                부탁드립니다~!
-              </Styles.CommentsIndividualContentBox>
-            </Styles.CommentsIndividualContentWrapper>
-          </Styles.CommentsIndividualBox>
-          <Styles.CommentsListsCreatedAt>
-            2021.02.22
-          </Styles.CommentsListsCreatedAt>
-          <Styles.DivideLine></Styles.DivideLine>
-          <Styles.CommentsIndividualBox>
-            <Styles.BoardHeaderProfileImgBox>
-              <FontAwesomeIcon icon={faUser} />
-            </Styles.BoardHeaderProfileImgBox>
-            <Styles.CommentsIndividualContentWrapper>
-              <Styles.CommentsIndividualNameBox>
-                <span>땅찌</span>
-                <Styles.CommentsListsRating>
-                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
-                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
-                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                </Styles.CommentsListsRating>
-              </Styles.CommentsIndividualNameBox>
-              <Styles.CommentsIndividualContentBox>
-                진짜 유익하고 정말 필요한 정보인 것 같아요~! 앞으로도 좋은 정보
-                부탁드립니다~!
-              </Styles.CommentsIndividualContentBox>
-            </Styles.CommentsIndividualContentWrapper>
-          </Styles.CommentsIndividualBox>
-          <Styles.CommentsListsCreatedAt>
-            2021.02.22
-          </Styles.CommentsListsCreatedAt>
-          <Styles.DivideLine></Styles.DivideLine>
-          <Styles.CommentsIndividualBox>
-            <Styles.BoardHeaderProfileImgBox>
-              <FontAwesomeIcon icon={faUser} />
-            </Styles.BoardHeaderProfileImgBox>
-            <Styles.CommentsIndividualContentWrapper>
-              <Styles.CommentsIndividualNameBox>
-                <span>안우엽</span>
-                <Styles.CommentsListsRating>
-                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
-                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
-                  <FontAwesomeIcon color="#ffd600" icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                </Styles.CommentsListsRating>
-              </Styles.CommentsIndividualNameBox>
-              <Styles.CommentsIndividualContentBox>
-                진짜 유익하고 정말 필요한 정보인 것 같아요~! 앞으로도 좋은 정보
-                부탁드립니다~!
-              </Styles.CommentsIndividualContentBox>
-            </Styles.CommentsIndividualContentWrapper>
-          </Styles.CommentsIndividualBox>
-          <Styles.CommentsListsCreatedAt>
-            2021.02.22
-          </Styles.CommentsListsCreatedAt>
-          <Styles.DivideLine></Styles.DivideLine>
+          {props.commentsData?.fetchBoardComments.map((el) => (
+            <Styles.CommentsIndividualBox key={el._id}>
+              <Styles.CommentsIndividualProfileImgBox>
+                <FontAwesomeIcon icon={faUser} />
+              </Styles.CommentsIndividualProfileImgBox>
+              <Styles.CommentsIndividualContentWrapper>
+                <Styles.CommentsIndividualNameBox>
+                  <Styles.CommentsIndividualNameSpan>
+                    {el.writer}
+                  </Styles.CommentsIndividualNameSpan>
+                  <Styles.CommentsListsRating>
+                    <Styles.MyRate allowHalf value={el.rating} disabled />
+                  </Styles.CommentsListsRating>
+                </Styles.CommentsIndividualNameBox>
+                <Styles.CommentsIndividualContentBox>
+                  {el.contents}
+                </Styles.CommentsIndividualContentBox>
+                <Styles.CommentsListsCreatedAt>
+                  2021.02.22
+                </Styles.CommentsListsCreatedAt>
+              </Styles.CommentsIndividualContentWrapper>
+            </Styles.CommentsIndividualBox>
+          ))}
         </Styles.CommentsListWrapper>
       </Styles.BoardDetailBottomPageWrapper>
     </Styles.MasterWrapper>
