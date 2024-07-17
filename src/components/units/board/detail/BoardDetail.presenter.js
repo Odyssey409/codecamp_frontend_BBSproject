@@ -87,20 +87,58 @@ export default function BoardDetailUI(props) {
           </Styles.CommentIcon>
           댓글
         </Styles.CommentsTitleBox>
-        <Styles.CommentRatingBox>
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-          <FontAwesomeIcon icon={faStar} />
-        </Styles.CommentRatingBox>
+        <Styles.CommentUserInfoWrapper>
+          <Styles.CommentUserInfoInputBox
+            placeholder="이름을 적어주세요."
+            onChange={props.onChangeWriter}
+          ></Styles.CommentUserInfoInputBox>
+          <Styles.CommentUserInfoInputBox
+            placeholder="비밀번호를 입력해주세요."
+            onChange={props.onChangePassword}
+          ></Styles.CommentUserInfoInputBox>
+          <Styles.CommentRatingBox>
+            <Styles.MyRate
+              onChange={props.onChangeRating}
+              allowHalf
+              defaultValue={2.5}
+            />
+            ;
+          </Styles.CommentRatingBox>
+        </Styles.CommentUserInfoWrapper>
+        <Styles.CommentErrorMsgWrapper>
+          <Styles.CommentErrorMsgContainer>
+            {props.writerError}
+          </Styles.CommentErrorMsgContainer>
+          <Styles.CommentErrorMsgContainer>
+            {props.passwordError}
+          </Styles.CommentErrorMsgContainer>
+          <Styles.CommentErrorMsgContainer>
+            {props.ratingError}
+          </Styles.CommentErrorMsgContainer>
+        </Styles.CommentErrorMsgWrapper>
+
         <Styles.CommentWritingWrapper>
-          <Styles.CommentWritingBox placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."></Styles.CommentWritingBox>
+          <Styles.CommentWritingBox
+            placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
+            onChange={props.onChangeContent}
+          ></Styles.CommentWritingBox>
           <Styles.CommentPostBtnBox>
-            <Styles.CommentLetterCntBox>0/100</Styles.CommentLetterCntBox>
-            <Styles.CommentPostBtn>등록하기</Styles.CommentPostBtn>
+            <Styles.CommentLetterCntBox>
+              {props.contentLength}/100
+            </Styles.CommentLetterCntBox>
+            <Styles.CommentPostBtn
+              onClick={props.onClickCommentSubmitBtn}
+              disabled={props.activeSubmitBtn}
+            >
+              등록하기
+            </Styles.CommentPostBtn>
           </Styles.CommentPostBtnBox>
         </Styles.CommentWritingWrapper>
+        <Styles.CommentErrorMsgWrapper>
+          <Styles.CommentErrorMsgContainer>
+            {props.contentError}
+          </Styles.CommentErrorMsgContainer>
+        </Styles.CommentErrorMsgWrapper>
         <Styles.CommentsListWrapper>
           <Styles.CommentsIndividualBox>
             <Styles.BoardHeaderProfileImgBox>

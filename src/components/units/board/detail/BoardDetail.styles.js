@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Rate } from "antd";
 
 export const MasterWrapper = styled.div`
   box-sizing: border-box;
@@ -198,11 +199,31 @@ export const CommentIcon = styled.div`
 
 export const CommentRatingBox = styled.div`
   display: flex;
-  width: 10%;
+  width: 80%;
   align-items: center;
   justify-content: space-between;
   color: rgba(180, 189, 189, 0.7);
+  font-size: 22px;
+`;
+
+export const MyRate = styled(Rate)``;
+
+export const CommentUserInfoWrapper = styled.div`
+  display: flex;
+  width: 630px;
+  align-items: center;
+  justify-content: space-between;
   margin-top: 30px;
+`;
+
+export const CommentUserInfoInputBox = styled.input`
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 10px;
+  opacity: 0.6;
+  color: rgba(0, 0, 0, 1);
+  font-size: 15px;
+  margin-right: 20px;
 `;
 
 export const CommentWritingWrapper = styled.div`
@@ -240,7 +261,7 @@ export const CommentLetterCntBox = styled.div`
   margin-left: 15px;
 `;
 
-export const CommentPostBtn = styled.div`
+export const CommentPostBtn = styled.button`
   width: 100px;
   height: 100%;
   display: flex;
@@ -248,6 +269,28 @@ export const CommentPostBtn = styled.div`
   align-items: center;
   background-color: black;
   color: white;
+  &:disabled {
+    background-color: gray;
+  }
+`;
+
+export const CommentErrorMsgWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 730px;
+  margin-top: 10px;
+`;
+
+export const CommentErrorMsgContainer = styled.div`
+  display: flex;
+  width: 100%;
+
+  align-items: center;
+  font-size: 12px;
+  color: #ff4b4b;
+  font-weight: 900;
+  margin-top: 5px;
+  height: 6px;
 `;
 
 export const CommentsListWrapper = styled.div`
