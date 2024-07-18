@@ -332,7 +332,40 @@ export const CommentsIndividualNameBox = styled.div`
   height: 40px;
   width: 100%;
   align-items: center;
+  justify-content: space-between;
+`;
+
+export const CommentsNameRatingBox = styled.div`
+  display: flex;
+  height: 40px;
+  width: 50%;
+  align-items: center;
   justify-content: flex-start;
+`;
+
+export const CommentsEditDeleteWrapper = styled.div`
+  display: flex;
+  width: 50px;
+  height: 40px;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0.5;
+`;
+
+export const CommentsEditBox = styled.div`
+  display: flex;
+
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const CommentsDeleteBox = styled.div`
+  display: flex;
+
+  height: 40px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const CommentsIndividualNameSpan = styled.span`

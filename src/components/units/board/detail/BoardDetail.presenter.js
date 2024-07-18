@@ -1,5 +1,7 @@
 import * as Styles from "./BoardDetail.styles";
 
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+
 import {
   faUser,
   faLink,
@@ -7,7 +9,6 @@ import {
   faThumbsUp,
   faThumbsDown,
   faComments,
-  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -139,19 +140,35 @@ export default function BoardDetailUI(props) {
           </Styles.CommentErrorMsgContainer>
         </Styles.CommentErrorMsgWrapper>
         <Styles.CommentsListWrapper>
-          {props.commentsData?.fetchBoardComments.map((el) => (
+          {props.commentsData?.fetchBoardComments.map((el, index) => (
             <Styles.CommentsIndividualBox key={el._id}>
               <Styles.CommentsIndividualProfileImgBox>
                 <FontAwesomeIcon icon={faUser} />
               </Styles.CommentsIndividualProfileImgBox>
               <Styles.CommentsIndividualContentWrapper>
                 <Styles.CommentsIndividualNameBox>
-                  <Styles.CommentsIndividualNameSpan>
-                    {el.writer}
-                  </Styles.CommentsIndividualNameSpan>
-                  <Styles.CommentsListsRating>
-                    <Styles.MyRate allowHalf value={el.rating} disabled />
-                  </Styles.CommentsListsRating>
+                  <Styles.CommentsNameRatingBox>
+                    <Styles.CommentsIndividualNameSpan>
+                      {el.writer}
+                    </Styles.CommentsIndividualNameSpan>
+                    <Styles.CommentsListsRating>
+                      <Styles.MyRate allowHalf value={el.rating} disabled />
+                    </Styles.CommentsListsRating>
+                  </Styles.CommentsNameRatingBox>
+
+                  <Styles.CommentsEditDeleteWrapper>
+                    <Styles.CommentsEditBox>
+                      <EditOutlined />
+                    </Styles.CommentsEditBox>
+                    <Styles.CommentsDeleteBox
+                      id={el._id}
+                      onClick={(e) =>
+                        props.onClickCommentDelete(e.currentTarget.id)
+                      }
+                    >
+                      <DeleteOutlined />
+                    </Styles.CommentsDeleteBox>
+                  </Styles.CommentsEditDeleteWrapper>
                 </Styles.CommentsIndividualNameBox>
                 <Styles.CommentsIndividualContentBox>
                   {el.contents}

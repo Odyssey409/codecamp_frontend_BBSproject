@@ -7,6 +7,7 @@ import {
   DELETE_BOARD,
   CREATE_BOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
+  DELETE_BOARD_COMMENT,
 } from "./BoardDetail.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
 
@@ -14,6 +15,7 @@ export default function BoardDetail() {
   const router = useRouter();
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
+  const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -147,6 +149,7 @@ export default function BoardDetail() {
       console.log(error);
     }
   };
+
   const onClickToList = async (event) => {
     try {
       router.push(`/boards/list`);
@@ -154,8 +157,29 @@ export default function BoardDetail() {
       console.log(error);
     }
   };
+
   const onClickMoveEdit = () => {
     router.push(`/boards/${router.query.boardId}/edit`);
+  };
+
+  const onClickCommentDelete = async (CommentId) => {
+    console.log(CommentId);
+    try {
+      const result = await deleteBoardComment({
+        variables: {
+          password: "임시", // 비밀번호 어떻게 받아올지 고민
+          boardCommentId: CommentId,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_COMMENTS,
+            variables: { boardId: router.query.boardId },
+          },
+        ],
+      });
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -176,6 +200,7 @@ export default function BoardDetail() {
       ratingError={ratingError}
       contentLength={contentLength}
       commentsData={commentsData}
+      onClickCommentDelete={onClickCommentDelete}
     />
   );
 }
