@@ -92,16 +92,19 @@ export default function BoardDetailUI(props) {
           <Styles.CommentUserInfoInputBox
             placeholder="이름을 적어주세요."
             onChange={props.onChangeWriter}
+            value={props.writer}
           ></Styles.CommentUserInfoInputBox>
           <Styles.CommentUserInfoInputBox
             placeholder="비밀번호를 입력해주세요."
             onChange={props.onChangePassword}
+            value={props.password}
           ></Styles.CommentUserInfoInputBox>
           <Styles.CommentRatingBox>
             <Styles.MyRate
               onChange={props.onChangeRating}
               allowHalf
               defaultValue={2.5}
+              value={props.rating}
             />
           </Styles.CommentRatingBox>
         </Styles.CommentUserInfoWrapper>
@@ -121,6 +124,7 @@ export default function BoardDetailUI(props) {
           <Styles.CommentWritingBox
             placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
             onChange={props.onChangeContent}
+            value={props.content}
           ></Styles.CommentWritingBox>
           <Styles.CommentPostBtnBox>
             <Styles.CommentLetterCntBox>

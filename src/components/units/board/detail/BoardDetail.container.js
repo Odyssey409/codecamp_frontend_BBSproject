@@ -128,6 +128,10 @@ export default function BoardDetail() {
             },
           ],
         });
+        setWriter("");
+        setPassword("");
+        setContent("");
+        setRating(2.5);
       } catch (error) {
         alert(error.message);
       }
@@ -163,11 +167,11 @@ export default function BoardDetail() {
   };
 
   const onClickCommentDelete = async (CommentId) => {
-    console.log(CommentId);
+    const passwordForEditComment = prompt("댓글 비밀번호 입력" + "");
     try {
       const result = await deleteBoardComment({
         variables: {
-          password: "임시", // 비밀번호 어떻게 받아올지 고민
+          password: passwordForEditComment, // 비밀번호 어떻게 받아올지 고민
           boardCommentId: CommentId,
         },
         refetchQueries: [
@@ -177,6 +181,7 @@ export default function BoardDetail() {
           },
         ],
       });
+      alert("댓글 삭제가 완료되었습니다.");
     } catch (error) {
       alert(error.message);
     }
@@ -201,6 +206,10 @@ export default function BoardDetail() {
       contentLength={contentLength}
       commentsData={commentsData}
       onClickCommentDelete={onClickCommentDelete}
+      writer={writer}
+      password={password}
+      content={content}
+      rating={rating}
     />
   );
 }
