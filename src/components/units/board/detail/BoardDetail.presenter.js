@@ -131,10 +131,14 @@ export default function BoardDetailUI(props) {
               {props.contentLength}/100
             </Styles.CommentLetterCntBox>
             <Styles.CommentPostBtn
-              onClick={props.onClickCommentSubmitBtn}
+              onClick={
+                props.isEditComment
+                  ? props.onClickCommentSubmitBtn
+                  : props.onClickCommentUpdateSubmit
+              }
               disabled={props.activeSubmitBtn}
             >
-              등록하기
+              {props.isEditComment ? "수정" : "등록"}하기
             </Styles.CommentPostBtn>
           </Styles.CommentPostBtnBox>
         </Styles.CommentWritingWrapper>
@@ -161,7 +165,12 @@ export default function BoardDetailUI(props) {
                   </Styles.CommentsNameRatingBox>
 
                   <Styles.CommentsEditDeleteWrapper>
-                    <Styles.CommentsEditBox>
+                    <Styles.CommentsEditBox
+                      id={el._id}
+                      onClick={(e) =>
+                        props.onClickCommentUpdate(e.currentTarget.id)
+                      }
+                    >
                       <EditOutlined />
                     </Styles.CommentsEditBox>
                     <Styles.CommentsDeleteBox

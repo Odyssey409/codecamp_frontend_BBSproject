@@ -8,6 +8,7 @@ import {
   CREATE_BOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
   DELETE_BOARD_COMMENT,
+  UPDATE_BOARD_COMMENT,
 } from "./BoardDetail.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
 
@@ -16,6 +17,7 @@ export default function BoardDetail() {
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
+  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -23,6 +25,9 @@ export default function BoardDetail() {
   const [rating, setRating] = useState(0.0);
   const [contentLength, setContentLength] = useState(0);
   const [activeSubmitBtn, setActiveSubmitBtn] = useState(true);
+  const [passwordForEditComment, setPasswordForEditComment] = useState("");
+  const [idForEditComment, setIdForEditComment] = useState("");
+  const [isEditComment, setIsEditComment] = useState(false);
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -167,11 +172,12 @@ export default function BoardDetail() {
   };
 
   const onClickCommentDelete = async (CommentId) => {
-    const passwordForEditComment = prompt("댓글 비밀번호 입력" + "");
+    const passwordInput = prompt("댓글 비밀번호 입력" + "");
+
     try {
       const result = await deleteBoardComment({
         variables: {
-          password: passwordForEditComment, // 비밀번호 어떻게 받아올지 고민
+          password: passwordInput, // 비밀번호 어떻게 받아올지 고민
           boardCommentId: CommentId,
         },
         refetchQueries: [
@@ -182,6 +188,36 @@ export default function BoardDetail() {
         ],
       });
       alert("댓글 삭제가 완료되었습니다.");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const onClickCommentUpdate = (CommentId) => {
+    const passwordInput = prompt("댓글 비밀번호 입력" + "");
+    setPasswordForEditComment(passwordInput);
+    setIdForEditComment(CommentId);
+    setIsEditComment(true);
+  };
+
+  const onClickCommentUpdateSubmit = async (CommentId) => {
+    const myVariables = {
+      password: passwordForEditComment, // 비밀번호 어떻게 받아올지 고민
+      boardCommentId: idForEditComment,
+      updateBoardCommentInput: {},
+    };
+
+    try {
+      const result = await updateBoardComment({
+        variables: myVariables,
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_COMMENTS,
+            variables: { boardId: router.query.boardId },
+          },
+        ],
+      });
+      alert("댓글 수정이 완료되었습니다.");
     } catch (error) {
       alert(error.message);
     }
@@ -210,6 +246,9 @@ export default function BoardDetail() {
       password={password}
       content={content}
       rating={rating}
+      onClickCommentUpdate={onClickCommentUpdate}
+      isEditComment={isEditComment}
+      onClickCommentUpdateSubmit={onClickCommentUpdateSubmit}
     />
   );
 }

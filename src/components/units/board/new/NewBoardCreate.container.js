@@ -123,8 +123,6 @@ export default function NewBoard(props) {
       return;
     }
 
-    console.log(props.data?.fetchBoard.youtubeUrl);
-
     if (!contentTitle) {
       myVariables.updateBoardInput.title = props.data?.fetchBoard.title;
     } else {
