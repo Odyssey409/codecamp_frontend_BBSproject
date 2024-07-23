@@ -93,11 +93,13 @@ export default function BoardDetailUI(props) {
             placeholder="이름을 적어주세요."
             onChange={props.onChangeWriter}
             value={props.writer}
+            hidden={props.isEditComment}
           ></Styles.CommentUserInfoInputBox>
           <Styles.CommentUserInfoInputBox
             placeholder="비밀번호를 입력해주세요."
             onChange={props.onChangePassword}
             value={props.password}
+            hidden={props.isEditComment}
           ></Styles.CommentUserInfoInputBox>
           <Styles.CommentRatingBox>
             <Styles.MyRate
@@ -122,7 +124,11 @@ export default function BoardDetailUI(props) {
 
         <Styles.CommentWritingWrapper>
           <Styles.CommentWritingBox
-            placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
+            placeholder={
+              props.isEditComment
+                ? "수정할 내용을 입력해 주세요"
+                : "개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
+            }
             onChange={props.onChangeContent}
             value={props.content}
           ></Styles.CommentWritingBox>
@@ -133,10 +139,10 @@ export default function BoardDetailUI(props) {
             <Styles.CommentPostBtn
               onClick={
                 props.isEditComment
-                  ? props.onClickCommentSubmitBtn
-                  : props.onClickCommentUpdateSubmit
+                  ? props.onClickCommentUpdateSubmit
+                  : props.onClickCommentSubmitBtn
               }
-              disabled={props.activeSubmitBtn}
+              disabled={props.isEditComment ? false : props.activeSubmitBtn}
             >
               {props.isEditComment ? "수정" : "등록"}하기
             </Styles.CommentPostBtn>

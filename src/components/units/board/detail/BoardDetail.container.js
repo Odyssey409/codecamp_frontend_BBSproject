@@ -22,7 +22,7 @@ export default function BoardDetail() {
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [content, setContent] = useState("");
-  const [rating, setRating] = useState(0.0);
+  const [rating, setRating] = useState(2.5);
   const [contentLength, setContentLength] = useState(0);
   const [activeSubmitBtn, setActiveSubmitBtn] = useState(true);
   const [passwordForEditComment, setPasswordForEditComment] = useState("");
@@ -200,16 +200,17 @@ export default function BoardDetail() {
     setIsEditComment(true);
   };
 
-  const onClickCommentUpdateSubmit = async (CommentId) => {
-    const myVariables = {
-      password: passwordForEditComment, // 비밀번호 어떻게 받아올지 고민
-      boardCommentId: idForEditComment,
-      updateBoardCommentInput: {},
-    };
+  const onClickCommentUpdateSubmit = async () => {
+    console.log(passwordForEditComment);
+    console.log(idForEditComment);
 
     try {
       const result = await updateBoardComment({
-        variables: myVariables,
+        variables: {
+          password: passwordForEditComment, // 비밀번호 어떻게 받아올지 고민
+          boardCommentId: idForEditComment,
+          updateBoardCommentInput: { contents: content, rating: rating },
+        },
         refetchQueries: [
           {
             query: FETCH_BOARD_COMMENTS,
@@ -218,6 +219,7 @@ export default function BoardDetail() {
         ],
       });
       alert("댓글 수정이 완료되었습니다.");
+      setIsEditComment(false);
     } catch (error) {
       alert(error.message);
     }
