@@ -2,6 +2,7 @@ import BoardListUI from "./BoardList.presenter";
 import { useQuery } from "@apollo/client";
 import { FETCH_BOARDS } from "./BoardList.queries";
 import { useRouter } from "next/router";
+import React from "react";
 
 export default function BoardList() {
   const router = useRouter();
@@ -14,16 +15,18 @@ export default function BoardList() {
     try {
       router.push(`/boards/new`);
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) alert(error.message);
     }
   };
 
-  const onClickBoardDetailBtn = async (event) => {
-    console.log(event.target.id);
+  const onClickBoardDetailBtn = async (
+    event: React.MouseEvent<HTMLDivElement>
+  ) => {
+    console.log(event.currentTarget.id);
     try {
-      router.push(`/boards/${event.target.id}`);
+      router.push(`/boards/${event.currentTarget.id}`);
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) alert(error.message);
     }
   };
 

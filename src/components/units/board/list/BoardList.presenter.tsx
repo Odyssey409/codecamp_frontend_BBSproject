@@ -1,10 +1,12 @@
 import * as Styles from "./BoardList.styles";
-import { getDate } from "../../../../../src/common/libraries/dateFormat";
+import { getDate } from "../../../../common/libraries/dateFormat";
 
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function BoardListUI(props) {
+import { IBoardListUIProps } from "./BoardList.types";
+
+export default function BoardListUI(props: IBoardListUIProps) {
   return (
     <Styles.MasterWrapper>
       <Styles.PageWrapper>
