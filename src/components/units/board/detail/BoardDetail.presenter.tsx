@@ -2,6 +2,8 @@ import * as Styles from "./BoardDetail.styles";
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
+import { getDate } from "../../../../common/libraries/dateFormat";
+
 import {
   faUser,
   faLink,
@@ -29,7 +31,9 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
               </Styles.BoardHeaderName>
               <Styles.BoardHeaderDate>
                 Date :{" "}
-                {props.data ? props.data.fetchBoard?.createdAt : "loading..."}
+                {props.data
+                  ? getDate(props.data.fetchBoard?.createdAt)
+                  : "loading..."}
               </Styles.BoardHeaderDate>
             </Styles.BoardHeaderNameDateBox>
           </Styles.BoardHeaderLeftWrapper>
@@ -195,7 +199,7 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
                   {el.contents}
                 </Styles.CommentsIndividualContentBox>
                 <Styles.CommentsListsCreatedAt>
-                  2021.02.22
+                  {getDate(el.createdAt)}
                 </Styles.CommentsListsCreatedAt>
               </Styles.CommentsIndividualContentWrapper>
             </Styles.CommentsIndividualBox>

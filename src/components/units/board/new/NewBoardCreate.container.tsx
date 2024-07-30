@@ -6,12 +6,23 @@ import { CREATE_BOARD, UPDATE_BOARD } from "./NewBoardCreate.queries";
 import CreateNewBoardUI from "./NewBoardCreate.presenter";
 
 import { IBoardWriteProps } from "./NewBoardCreate.types";
-import { IUpdateBoardInput } from "../../../../common/types/generated/types";
+import {
+  IUpdateBoardInput,
+  IMutation,
+  IMutationCreateBoardArgs,
+  IMutationUpdateBoardArgs,
+} from "../../../../common/types/generated/types";
 
 export default function NewBoard(props: IBoardWriteProps) {
   const router = useRouter();
-  const [createBoard] = useMutation(CREATE_BOARD);
-  const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [createBoard] = useMutation<
+    Pick<IMutation, "createBoard">,
+    IMutationCreateBoardArgs
+  >(CREATE_BOARD);
+  const [updateBoard] = useMutation<
+    Pick<IMutation, "updateBoard">,
+    IMutationUpdateBoardArgs
+  >(UPDATE_BOARD);
 
   const [username, setUsername] = useState("");
   const [userpassword, setPassword] = useState("");
@@ -107,7 +118,11 @@ export default function NewBoard(props: IBoardWriteProps) {
             },
           },
         });
-        router.push(`/boards/${result.data.createBoard._id}`);
+        if (result.data) {
+          router.push(`/boards/${result.data.createBoard._id}`);
+        } else {
+          alert("게시물 등록에 실패했습니다. 다시 시도해 주세요.");
+        }
       } catch (error) {
         if (error instanceof Error) alert(error.message);
       }
@@ -124,6 +139,11 @@ export default function NewBoard(props: IBoardWriteProps) {
 
     if (!userpassword) {
       alert("비밀번호를 입력해주세요!");
+      return;
+    }
+
+    if (!boardId) {
+      alert("게시물 ID가 유효하지 않습니다.");
       return;
     }
 
