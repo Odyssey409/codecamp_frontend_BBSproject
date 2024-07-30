@@ -12,7 +12,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function BoardDetailUI(props) {
+import { IBoardDetailUIProps } from "./BoardDetail.types";
+
+export default function BoardDetailUI(props: IBoardDetailUIProps) {
   return (
     <Styles.MasterWrapper>
       <Styles.PageWrapper>

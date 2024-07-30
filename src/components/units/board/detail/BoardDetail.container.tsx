@@ -1,6 +1,7 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import React from "react";
 
 import {
   FETCH_BOARD,
@@ -12,12 +13,40 @@ import {
 } from "./BoardDetail.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
 
+import {
+  IMutation,
+  IMutationCreateBoardCommentArgs,
+  IMutationDeleteBoardArgs,
+  IMutationDeleteBoardCommentArgs,
+  IMutationUpdateBoardCommentArgs,
+  IQuery,
+  IQueryFetchBoardArgs,
+  IQueryFetchBoardCommentsArgs,
+} from "../../../../common/types/generated/types";
+
 export default function BoardDetail() {
   const router = useRouter();
-  const [deleteBoard] = useMutation(DELETE_BOARD);
-  const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
-  const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
-  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
+  if (!router || typeof router.query.boardId !== "string") return <></>;
+
+  const [deleteBoard] = useMutation<
+    Pick<IMutation, "deleteBoard">,
+    IMutationDeleteBoardArgs
+  >(DELETE_BOARD);
+
+  const [deleteBoardComment] = useMutation<
+    Pick<IMutation, "deleteBoardComment">,
+    IMutationDeleteBoardCommentArgs
+  >(DELETE_BOARD_COMMENT);
+
+  const [createBoardComment] = useMutation<
+    Pick<IMutation, "createBoardComment">,
+    IMutationCreateBoardCommentArgs
+  >(CREATE_BOARD_COMMENT);
+
+  const [updateBoardComment] = useMutation<
+    Pick<IMutation, "updateBoardComment">,
+    IMutationUpdateBoardCommentArgs
+  >(UPDATE_BOARD_COMMENT);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -34,15 +63,21 @@ export default function BoardDetail() {
   const [contentError, setContentError] = useState("");
   const [ratingError, setRatingError] = useState("");
 
-  const { data } = useQuery(FETCH_BOARD, {
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+    FETCH_BOARD,
+    {
+      variables: { boardId: router.query.boardId },
+    }
+  );
+
+  const { data: commentsData } = useQuery<
+    Pick<IQuery, "fetchBoardComments">,
+    IQueryFetchBoardCommentsArgs
+  >(FETCH_BOARD_COMMENTS, {
     variables: { boardId: router.query.boardId },
   });
 
-  const { data: commentsData } = useQuery(FETCH_BOARD_COMMENTS, {
-    variables: { boardId: router.query.boardId },
-  });
-
-  const onChangeWriter = () => {
+  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
     if (writer !== "") {
       setWriterError("");
@@ -54,7 +89,7 @@ export default function BoardDetail() {
     }
   };
 
-  const onChangePassword = () => {
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
     if (password !== "") {
       setPasswordError("");
@@ -66,7 +101,7 @@ export default function BoardDetail() {
     }
   };
 
-  const onChangeContent = () => {
+  const onChangeContent = (event: ChangeEvent<HTMLInputElement>) => {
     setContent(event.target.value);
     if (content !== "") {
       setContentError("");
@@ -86,7 +121,7 @@ export default function BoardDetail() {
     setContentLength(content.length);
   };
 
-  const onChangeRating = (value) => {
+  const onChangeRating = (value: number) => {
     setRating(value);
     if (rating !== null) {
       setRatingError("");
@@ -100,6 +135,8 @@ export default function BoardDetail() {
   };
 
   const onClickCommentSubmitBtn = async () => {
+    const boardId = router.query.boardId;
+
     if (!writer) {
       setWriterError("작성자를 입력해주세요.");
     }
@@ -112,7 +149,13 @@ export default function BoardDetail() {
     if (!rating) {
       setRatingError("별점을 입력해주세요.");
     }
-    if (writer && password && content && rating) {
+    if (
+      writer &&
+      password &&
+      content &&
+      rating &&
+      typeof boardId === "string"
+    ) {
       alert("댓글이 등록되었습니다.");
 
       try {
@@ -124,12 +167,12 @@ export default function BoardDetail() {
               contents: content,
               rating: rating,
             },
-            boardId: router.query.boardId,
+            boardId: boardId,
           },
           refetchQueries: [
             {
               query: FETCH_BOARD_COMMENTS,
-              variables: { boardId: router.query.boardId },
+              variables: { boardId: boardId },
             },
           ],
         });
@@ -138,32 +181,29 @@ export default function BoardDetail() {
         setContent("");
         setRating(2.5);
       } catch (error) {
-        alert(error.message);
+        if (error instanceof Error) alert(error.message);
       }
     }
   };
 
-  const onClickDelete = async (event) => {
+  const onClickDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
     try {
-      const result = await deleteBoard(
-        {
-          variables: {
-            boardId: event.target.id,
-          },
+      const result = await deleteBoard({
+        variables: {
+          boardId: event.currentTarget.id,
         },
-        router.push(`/boards/list`),
-        alert("게시글 삭제가 완료되었습니다.")
-      );
+      });
+      router.push(`/boards/list`), alert("게시글 삭제가 완료되었습니다.");
     } catch (error) {
-      console.log(error);
+      if (error instanceof Error) alert(error.message);
     }
   };
 
-  const onClickToList = async (event) => {
+  const onClickToList = async (event: React.MouseEvent<HTMLButtonElement>) => {
     try {
       router.push(`/boards/list`);
     } catch (error) {
-      console.log(error);
+      if (error instanceof Error) alert(error.message);
     }
   };
 
@@ -171,7 +211,7 @@ export default function BoardDetail() {
     router.push(`/boards/${router.query.boardId}/edit`);
   };
 
-  const onClickCommentDelete = async (CommentId) => {
+  const onClickCommentDelete = async (CommentId: string) => {
     const passwordInput = prompt("댓글 비밀번호 입력" + "");
 
     try {
@@ -189,15 +229,19 @@ export default function BoardDetail() {
       });
       alert("댓글 삭제가 완료되었습니다.");
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) alert(error.message);
     }
   };
 
-  const onClickCommentUpdate = (CommentId) => {
-    const passwordInput = prompt("댓글 비밀번호 입력" + "");
-    setPasswordForEditComment(passwordInput);
-    setIdForEditComment(CommentId);
-    setIsEditComment(true);
+  const onClickCommentUpdate = (CommentId: string) => {
+    const passwordInput = prompt("댓글 비밀번호 입력") || ""; // null 체크 및 기본값 설정
+    if (passwordInput) {
+      setPasswordForEditComment(passwordInput);
+      setIdForEditComment(CommentId);
+      setIsEditComment(true);
+    } else {
+      alert("비밀번호가 입력되지 않았습니다."); // 비밀번호가 입력되지 않은 경우 알림
+    }
   };
 
   const onClickCommentUpdateSubmit = async () => {
@@ -221,7 +265,7 @@ export default function BoardDetail() {
       alert("댓글 수정이 완료되었습니다.");
       setIsEditComment(false);
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) alert(error.message);
     }
   };
 
