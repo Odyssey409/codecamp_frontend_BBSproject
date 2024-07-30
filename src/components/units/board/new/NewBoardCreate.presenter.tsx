@@ -1,6 +1,7 @@
 import * as Styles from "./NewBoardCreate.styles";
+import { IBoardWriteUIProps } from "./NewBoardCreate.types";
 
-export default function CreateNewBoardUI(props) {
+export default function CreateNewBoardUI(props: IBoardWriteUIProps) {
   return (
     <Styles.MasterWrapper>
       <Styles.PageWrapper>
@@ -15,7 +16,7 @@ export default function CreateNewBoardUI(props) {
             <Styles.InputBoxContainer
               placeholder="이름을 적어주세요."
               onChange={props.onChangeUserName}
-              defaultValue={props.data?.fetchBoard.writer}
+              defaultValue={props.data?.fetchBoard.writer ?? ""}
               disabled={props.isEdit}
             ></Styles.InputBoxContainer>
             <Styles.ErrorMsgContainer>
@@ -41,7 +42,7 @@ export default function CreateNewBoardUI(props) {
             defaultValue={props.data?.fetchBoard.title}
           ></Styles.InputBoxContainer>
           <Styles.ErrorMsgContainer>
-            {props.ContentTitleError}
+            {props.contentTitleError}
           </Styles.ErrorMsgContainer>
         </Styles.InputBoxWrapper>
         <Styles.ContentBoxContainer>
@@ -52,7 +53,7 @@ export default function CreateNewBoardUI(props) {
             defaultValue={props.data?.fetchBoard.contents}
           ></Styles.ContentBoxInput>
           <Styles.ErrorMsgContainer>
-            {props.ContentError}
+            {props.contentError}
           </Styles.ErrorMsgContainer>
         </Styles.ContentBoxContainer>
         <Styles.AddressBoxWrapper>
@@ -67,7 +68,7 @@ export default function CreateNewBoardUI(props) {
         <Styles.InputBoxWrapper>
           <Styles.InputTitleSpan>유튜브</Styles.InputTitleSpan>
           <Styles.InputBoxContainer
-            defaultValue={props.data?.fetchBoard.youtubeUrl}
+            defaultValue={props.data?.fetchBoard.youtubeUrl ?? ""}
             placeholder="링크를 복사해주세요."
             onChange={props.onChangeYoutubeURL}
           ></Styles.InputBoxContainer>
@@ -96,7 +97,7 @@ export default function CreateNewBoardUI(props) {
               <Styles.CheckBoxInput
                 name="mainSetting"
                 type="radio"
-                defaultChecked="true"
+                defaultChecked={true}
               ></Styles.CheckBoxInput>
               <span>유튜브</span>
               <Styles.CheckBoxInput
